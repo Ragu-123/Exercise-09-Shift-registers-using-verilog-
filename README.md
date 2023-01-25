@@ -42,22 +42,81 @@ A Parallel in Parallel out (PIPO) shift register is used as a temporary storage 
 
 ### Procedure
 /* write all the steps invloved */
+Step1:
+Create a new Quartus II project.
 
+Step2:
+Create a new file in the Quartus II where name of the module is name of the project.
+
+Step3:
+Declare a function for each logical circuit.
+
+Step4:
+For each definition give end module.
+
+Step5:
+Run RTL simulation and timing diagram.
 
 
 ### PROGRAM 
-/*
-Program for  Implementation-of Shift-registers-using-verilog-
-Developed by: 
-RegisterNumber:  
-*/
 
+Program for  Implementation-of Shift-registers-using-verilog-
+Developed by:RAGUNATH R 
+RegisterNumber:22008922 
+
+
+SIPO
+
+module sipo(si,clk,po);
+input si,clk;
+output [0:7]po;
+reg [0:7]temp;
+always@(posedge clk)
+begin
+temp = {temp[0:6],si};
+end
+assign po=temp;
+endmodule
+
+PISO
+
+module sipo(Clk, Parallel_In,load, Serial_Out);
+input Clk,load;
+input [3:0]Parallel_In;
+output reg Serial_Out;
+reg [3:0]tmp;
+always @(posedge Clk)
+begin
+if(load)
+tmp<=Parallel_In;
+else
+begin
+Serial_Out<=tmp[3];
+tmp<={tmp[2:0],1'b0};
+end
+end
+endmodule
+
+PIPO
+
+module sipo(pi,clk,po);
+input clk;
+input[3:0]pi;
+output reg[3:0]po;
+always@(posedge clk)
+begin
+po = pi;
+end 
+endmodule
 
 
 
 
 
 ### RTL LOGIC  REGISTERS   
+![WhatsApp Image 2023-01-25 at 22 11 26](https://user-images.githubusercontent.com/113915622/214625404-6f77e8e3-34f4-4dda-9b5b-40350cbc83c4.jpg)
+![WhatsApp Image 2023-01-25 at 22 12 10](https://user-images.githubusercontent.com/113915622/214625407-13c7b061-089a-40a9-a363-68cf3508d63d.jpg)
+![WhatsApp Image 2023-01-25 at 22 12 46](https://user-images.githubusercontent.com/113915622/214625406-9ff4286a-fc42-4e7a-acbd-8b33d663d954.jpg)
 
 
 
@@ -68,6 +127,10 @@ RegisterNumber:
 
 
 ### TIMING DIGRAMS FOR SHIFT REGISTERS
+![WhatsApp Image 2023-01-25 at 22 13 23](https://user-images.githubusercontent.com/113915622/214625456-f6cbffeb-b7ef-4cb2-ad88-82f3f54cc870.jpg)
+
+![WhatsApp Image 2023-01-25 at 22 13 46](https://user-images.githubusercontent.com/113915622/214625531-21a6d55b-569b-45a8-be89-cbcf0f1a3aa3.jpg)
+![WhatsApp Image 2023-01-25 at 22 13 46](https://user-images.githubusercontent.com/113915622/214625735-2789aff9-620f-4ada-a00c-264ba851b7ff.jpg)
 
 
 
@@ -76,4 +139,5 @@ RegisterNumber:
 
 
 
-### RESULTS 
+### RESULTS
+Therefore PISO,PIPO,PISO are implemented succesfully using verilog and validated their functionality using their functional tables.
